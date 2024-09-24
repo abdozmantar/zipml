@@ -1,2 +1,2 @@
-from .helpers import split_data, save_confusion_matrix, load_data, get_class_distribution, plot_class_distribution
-from .zipml import train_models, main
+from .helpers import split_data, save_confusion_matrix, load_data, get_class_distribution, plot_class_distribution, plot_results
+from .zipml import evaluate_model, optimize_hyperparameters, train_models,compare_models, main 

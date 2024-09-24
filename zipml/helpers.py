@@ -84,3 +84,19 @@ def plot_class_distribution(y):
     plt.xlabel('Class')
     plt.ylabel('Proportion')
     plt.show()
+
+# Function to visualize scores
+def plot_results(results):
+    """
+    Plots the model comparison results as a bar chart.
+
+    Parameters:
+    results (dict): Dictionary containing the performance metrics of the models.
+    """
+    logger.info("Plotting model comparison results.")
+    df = pd.DataFrame(results).T
+    df.plot(kind='bar', figsize=(10, 6))
+    plt.title('Model Comparison')
+    plt.ylabel('Score')
+    plt.xticks(rotation=0)
+    plt.show()
