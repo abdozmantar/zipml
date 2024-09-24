@@ -1,36 +1,22 @@
 # ZipML
 
-[![PyPI version](https://badge.fury.io/py/zipml.svg)](https://badge.fury.io/py/zipml)
-[![Build Status](https://travis-ci.com/abdozmantar/zipml.svg?branch=main)](https://travis-ci.com/abdozmantar/zipml)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/abdozmantar/zipml/blob/main/LICENSE)
-
-## Overview
-
-**ZipML** is an easy-to-use AutoML library that simplifies the machine learning pipeline for small datasets. With built-in utilities for train-test splitting, model comparison, and confusion matrix generation, ZipML provides essential tools for developers and data scientists working with supervised learning tasks.
-
-## Features
-
-- **Automated Model Training**: Automatically train and compare machine learning models on your dataset.
-- **Helper Functions**:
-  - Train-test split functionality for easy data management.
-  - Confusion matrix generation and the ability to save it as a PNG.
-  - Custom logging features for better tracking of your model's performance.
-- **Model Comparison**: Compare the performance of different models with ease, providing metrics and visual feedback.
-- **Extensible**: Add your own models and customize workflows as needed.
-
-## Installation
-
-To install the package from PyPI, run:
-
-```bash
-pip install zipml
-```
-
-# ZipML
-
-[![PyPI version](https://badge.fury.io/py/zipml.svg)](https://badge.fury.io/py/zipml)
-[![Build Status](https://travis-ci.com/abdozmantar/zipml.svg?branch=main)](https://travis-ci.com/abdozmantar/zipml)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/abdozmantar/zipml/blob/main/LICENSE)
+<p align="center">
+  <a href="https://badge.fury.io/py/zipml">
+    <img src="https://badge.fury.io/py/zipml.svg" alt="PyPI version" />
+  </a>
+  <a href="https://travis-ci.com/abdozmantar/zipml">
+    <img src="https://travis-ci.com/abdozmantar/zipml.svg?branch=main" alt="Build Status" />
+  </a>
+  <a href="https://github.com/abdozmantar/zipml/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License" />
+  </a>
+  <a href="https://pypi.org/project/zipml/">
+    <img src="https://img.shields.io/pypi/pyversions/zipml.svg" alt="Python Versions" />
+  </a>
+  <a href="https://pypi.org/project/zipml/">
+    <img src="https://img.shields.io/pypi/dm/zipml.svg" alt="Downloads" />
+  </a>
+</p>
 
 **ZipML** is a lightweight AutoML library designed for small datasets, offering essential helper functions like train-test splitting, model comparison, and confusion matrix generation.
 
