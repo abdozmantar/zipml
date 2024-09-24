@@ -5,10 +5,11 @@ import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 import logging
+from typing import Tuple, Any, Union
 
-logger = logging.getLogger()
+logger = logging.getLogger("Helpers")
 
-def split_data(X, y, test_size=0.2):
+def split_data(X: Union[pd.DataFrame, Any], y: Any, test_size: float = 0.2) -> Tuple[Union[pd.DataFrame, Any], Union[pd.DataFrame, Any], Any, Any]:
     """
     Splits data into training and testing sets.
     
@@ -23,7 +24,7 @@ def split_data(X, y, test_size=0.2):
     logger.info(f"Splitting data with test size of {test_size}.")
     return train_test_split(X, y, test_size=test_size, random_state=42)
 
-def save_confusion_matrix(y_true, y_pred, filename="confusion_matrix.png"):
+def save_confusion_matrix(y_true: Any, y_pred: Any, filename: str = "confusion_matrix.png") -> None:
     """
     Generates and saves a confusion matrix as a PNG file.
     
@@ -44,7 +45,7 @@ def save_confusion_matrix(y_true, y_pred, filename="confusion_matrix.png"):
 
 # Additional Helper Functions
 
-def load_data(file_path):
+def load_data(file_path: str) -> pd.DataFrame:
     """
     Loads a dataset from a CSV file.
     
@@ -57,7 +58,7 @@ def load_data(file_path):
     logger.info(f"Loading dataset from {file_path}.")
     return pd.read_csv(file_path)
 
-def get_class_distribution(y):
+def get_class_distribution(y: Any) -> pd.Series:
     """
     Calculates the distribution of target classes in the dataset.
     
@@ -70,7 +71,7 @@ def get_class_distribution(y):
     logger.info("Calculating class distribution.")
     return pd.Series(y).value_counts(normalize=True)
 
-def plot_class_distribution(y):
+def plot_class_distribution(y: Any) -> None:
     """
     Plots the distribution of target classes in the dataset.
     
@@ -86,7 +87,7 @@ def plot_class_distribution(y):
     plt.show()
 
 # Function to visualize scores
-def plot_results(results):
+def plot_results(results: dict) -> None:
     """
     Plots the model comparison results as a bar chart.
 

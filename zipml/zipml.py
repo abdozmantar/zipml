@@ -1,4 +1,3 @@
-# zipml/zipml.py
 import argparse
 import logging
 from .helpers import plot_results, split_data, save_confusion_matrix
@@ -7,17 +6,14 @@ from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
-import matplotlib.pyplot as plt
 import pandas as pd
+from typing import Tuple, Any, Dict, Union
 
 # Setting up logger
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger()
-
-# Other functions and the main function remain the same
+logger = logging.getLogger("ZipML")
 
 # Function to evaluate model performance
-def evaluate_model(y_true, y_pred):
+def evaluate_model(y_true: Any, y_pred: Any) -> Dict[str, float]:
     """
     Evaluates performance metrics for the model's predictions.
 
@@ -37,7 +33,7 @@ def evaluate_model(y_true, y_pred):
     }
 
 # Function for hyperparameter optimization
-def optimize_hyperparameters(model, X_train, y_train, param_grid):
+def optimize_hyperparameters(model: Any, X_train: Union[pd.DataFrame, Any], y_train: Any, param_grid: Dict[str, list]) -> Any:
     """
     Performs hyperparameter optimization using GridSearchCV.
 
@@ -56,7 +52,7 @@ def optimize_hyperparameters(model, X_train, y_train, param_grid):
     return grid_search.best_estimator_
 
 # Function to train and compare models
-def train_models(X, y):
+def train_models(X: Union[pd.DataFrame, Any], y: Any) -> Tuple[Any, Dict[str, Dict[str, float]]]:
     """
     Trains multiple models, compares their performance, and returns the best model.
 
@@ -65,8 +61,7 @@ def train_models(X, y):
     y (array-like): Target labels.
 
     Returns:
-    best_model: The best performing model.
-    results: Performance metrics of all models.
+    Tuple: The best performing model and performance metrics of all models.
     """
     logger.info("Starting model training and comparison.")
 
@@ -111,7 +106,7 @@ def train_models(X, y):
     return models[best_model_name], results
 
 # Function to compare specific models
-def compare_models(models, X_train, X_test, y_train, y_test):
+def compare_models(models: list, X_train: Union[pd.DataFrame, Any], X_test: Union[pd.DataFrame, Any], y_train: Any, y_test: Any) -> Tuple[Any, Dict[str, float]]:
     """
     Compares the performance of multiple machine learning models.
     
@@ -123,8 +118,7 @@ def compare_models(models, X_train, X_test, y_train, y_test):
     y_test (array-like): Target values for testing the models.
     
     Returns:
-    best_model: The model with the highest accuracy score.
-    performance (dict): A dictionary containing accuracy scores for each model.
+    Tuple: The model with the highest accuracy score and a dictionary containing accuracy scores for each model.
     """
     performance = {}
     
@@ -146,7 +140,7 @@ def compare_models(models, X_train, X_test, y_train, y_test):
     return best_model, performance
 
 # Main function to run the CLI
-def main():
+def main() -> None:
     """
     Main CLI function to train and compare models, and save the confusion matrix.
     """
