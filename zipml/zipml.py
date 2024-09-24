@@ -18,11 +18,11 @@ def evaluate_model(y_true: Any, y_pred: Any) -> Dict[str, float]:
     Evaluates performance metrics for the model's predictions.
 
     Parameters:
-    y_true (array-like): True labels.
-    y_pred (array-like): Predicted labels.
+        y_true (array-like): True labels.
+        y_pred (array-like): Predicted labels.
 
     Returns:
-    dict: A dictionary containing accuracy, precision, recall, and F1 score.
+        dict: A dictionary containing accuracy, precision, recall, and F1 score.
     """
     logger.info("Evaluating model performance metrics.")
     return {
@@ -38,13 +38,13 @@ def optimize_hyperparameters(model: Any, X_train: Union[pd.DataFrame, Any], y_tr
     Performs hyperparameter optimization using GridSearchCV.
 
     Parameters:
-    model: The machine learning model to be optimized.
-    X_train: Training data features.
-    y_train: Training data labels.
-    param_grid (dict): Hyperparameters to be optimized.
+        model: The machine learning model to be optimized.
+        X_train: Training data features.
+        y_train: Training data labels.
+        param_grid (dict): Hyperparameters to be optimized.
 
     Returns:
-    The best estimator after optimization.
+        The best estimator after optimization.
     """
     logger.info(f"Optimizing hyperparameters for {model.__class__.__name__}.")
     grid_search = GridSearchCV(model, param_grid, cv=3)
@@ -57,11 +57,11 @@ def train_models(X: Union[pd.DataFrame, Any], y: Any) -> Tuple[Any, Dict[str, Di
     Trains multiple models, compares their performance, and returns the best model.
 
     Parameters:
-    X (DataFrame or array-like): Features.
-    y (array-like): Target labels.
+        X (DataFrame or array-like): Features.
+        y (array-like): Target labels.
 
     Returns:
-    Tuple: The best performing model and performance metrics of all models.
+        Tuple: The best performing model and performance metrics of all models.
     """
     logger.info("Starting model training and comparison.")
 
@@ -111,14 +111,14 @@ def compare_models(models: list, X_train: Union[pd.DataFrame, Any], X_test: Unio
     Compares the performance of multiple machine learning models.
     
     Parameters:
-    models (list): A list of machine learning models to compare.
-    X_train (array-like): Feature set for training the models.
-    X_test (array-like): Feature set for testing the models.
-    y_train (array-like): Target values for training the models.
-    y_test (array-like): Target values for testing the models.
+        models (list): A list of machine learning models to compare.
+        X_train (array-like): Feature set for training the models.
+        X_test (array-like): Feature set for testing the models.
+        y_train (array-like): Target values for training the models.
+        y_test (array-like): Target values for testing the models.
     
     Returns:
-    Tuple: The model with the highest accuracy score and a dictionary containing accuracy scores for each model.
+        Tuple: The model with the highest accuracy score and a dictionary containing accuracy scores for each model.
     """
     performance = {}
     
@@ -142,7 +142,7 @@ def compare_models(models: list, X_train: Union[pd.DataFrame, Any], X_test: Unio
 # Main function to run the CLI
 def main() -> None:
     """
-    Main CLI function to train and compare models, and save the confusion matrix.
+        Main CLI function to train and compare models, and save the confusion matrix.
     """
     parser = argparse.ArgumentParser(description='ZipML: A simple AutoML for small datasets')
     parser.add_argument('file_path', type=str, help='Path to the dataset CSV file')
