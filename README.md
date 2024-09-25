@@ -39,8 +39,6 @@ Install the package via pip:
 pip install zipml
 ```
 
-````
-
 Alternatively, clone the repository:
 
 ```bash
@@ -157,4 +155,7 @@ GitHub: [@abdozmantar](https://github.com/abdozmantar)
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/abdozmantar/zipml/blob/main/LICENSE) file for details.
-````
+
+```
+
+```
