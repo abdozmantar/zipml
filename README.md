@@ -1,3 +1,6 @@
+Elbette! Aşağıda, sağladığın kod örneği ve belirttiğin değişiklikler göz önünde bulundurularak güncellenmiş README dosyası yer alıyor:
+
+````markdown
 # ZipML
 
 <p align="center">
@@ -38,6 +41,7 @@ Install the package via pip:
 ```bash
 pip install zipml
 ```
+````
 
 Alternatively, clone the repository:
 
@@ -47,37 +51,14 @@ cd zipml
 pip install .
 ```
 
-## CLI Support
-
-You can run ZipML from the command line using the following commands:
-
-### Single Model Training
-
-```bash
-zipml --train train.csv --test test.csv --model randomforest --output results.json
-```
-
-- `--train`: Path to the training dataset CSV file.
-- `--test`: Path to the testing dataset CSV file.
-- `--model`: Name of the model to be trained (e.g., `randomforest`).
-- `--output`: Path to the JSON file where results will be saved.
-
-### Multiple Model Comparison
-
-```bash
-zipml --train train.csv --test test.csv --compare --compare_models randomforest svc knn --output results.json
-```
-
-- `--compare`: A flag to indicate multiple model comparison.
-- `--compare_models`: A list of models to compare (e.g., `randomforest`, `svc`, `knn`).
-
 ## Usage
 
-Here’s a quick example to get started:
+### Example Usage with Code
+
+Here's a practical example of how to use ZipML:
 
 ```python
 from zipml import split_data, compare_models, save_confusion_matrix
-from zipml.helpers import load_data
 from sklearn.datasets import load_iris
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
@@ -100,9 +81,59 @@ models = [
 best_model, performance = compare_models(models, X_train, X_test, y_train, y_test)
 print(f"Best model: {best_model}")
 
-# Save results
+# Save confusion matrix
 save_confusion_matrix(y_test, best_model.predict(X_test))
 ```
+
+### CLI Usage
+
+You can run ZipML from the command line using the following commands:
+
+#### Train a Single Model
+
+```bash
+zipml --train train.csv --test test.csv --model randomforest --result results.json
+```
+
+- `--train`: Path to the training dataset CSV file.
+- `--test`: Path to the testing dataset CSV file.
+- `--model`: Name of the model to be trained (e.g., `randomforest`, `logisticregression`, `gradientboosting`).
+- `--result`: Path to the JSON file where results will be saved.
+
+#### Compare Multiple Models
+
+```bash
+zipml --train train.csv --test test.csv --compare --compare_models randomforest svc knn --result results.json
+```
+
+- `--compare`: A flag to indicate multiple model comparison.
+- `--compare_models`: A list of models to compare (e.g., `randomforest`, `logisticregression`, `gradientboosting`).
+- `--result`: Path to the JSON file where comparison results will be saved.
+
+#### Load a Pre-trained Model and Make Predictions
+
+```bash
+zipml --load_model trained_model.pkl --test test.csv --result predictions.json
+```
+
+- `--load_model`: Path to the saved model file.
+- `--test`: Path to the testing dataset CSV file.
+- `--result`: Path to the JSON file where predictions will be saved.
+
+#### Save the Trained Model
+
+To save the trained model after training:
+
+```bash
+zipml --train train.csv --test test.csv --model randomforest --save_model trained_model.pkl
+```
+
+- `--result`: Path to the file where the trained model will be saved.
+
+### Output
+
+- The output of training and comparison commands will include various performance metrics such as accuracy, precision, recall, and F1 score.
+- Results will be saved in JSON format, making them easy to review and analyze.
 
 ## Dependencies
 
