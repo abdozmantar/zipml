@@ -47,36 +47,61 @@ cd zipml
 pip install .
 ```
 
+## CLI Support
+
+You can run ZipML from the command line using the following commands:
+
+### Single Model Training
+
+```bash
+zipml --train train.csv --test test.csv --model randomforest --output results.json
+```
+
+- `--train`: Path to the training dataset CSV file.
+- `--test`: Path to the testing dataset CSV file.
+- `--model`: Name of the model to be trained (e.g., `randomforest`).
+- `--output`: Path to the JSON file where results will be saved.
+
+### Multiple Model Comparison
+
+```bash
+zipml --train train.csv --test test.csv --compare --compare_models randomforest svc knn --output results.json
+```
+
+- `--compare`: A flag to indicate multiple model comparison.
+- `--compare_models`: A list of models to compare (e.g., `randomforest`, `svc`, `knn`).
+
 ## Usage
 
-Here’s a quick example to get you started:
+Here’s a quick example to get started:
 
 ```python
-from zipml import split_data, compare_models
+from zipml import split_data, compare_models, save_confusion_matrix
+from zipml.helpers import load_data
 from sklearn.datasets import load_iris
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
 
-# Load dataset
+# Load data
 data = load_iris()
 X, y = data.data, data.target
 
 # Split data
 X_train, X_test, y_train, y_test = split_data(X, y)
 
-# Train models and compare
-rf = RandomForestClassifier()
-lr = LogisticRegression()
-best_model, performance = compare_models([rf, lr], X_train, X_test, y_train, y_test)
-print(f"Best Model: {best_model}")
-```
+# Define models
+models = [
+    RandomForestClassifier(),
+    LogisticRegression(),
+    GradientBoostingClassifier()
+]
 
-## CLI Support
+# Compare models
+best_model, performance = compare_models(models, X_train, X_test, y_train, y_test)
+print(f"Best model: {best_model}")
 
-You can run ZipML from the command line:
-
-```bash
-zipml --train train.csv --test test.csv --model randomforest --output results.json
+# Save results
+save_confusion_matrix(y_test, best_model.predict(X_test))
 ```
 
 ## Dependencies
@@ -87,7 +112,7 @@ zipml --train train.csv --test test.csv --model randomforest --output results.js
 - Matplotlib
 - Seaborn
 
-## Contribution
+## Contributing
 
 1. Fork the repository.
 2. Create your feature branch (`git checkout -b feature/foo`).

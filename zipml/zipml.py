@@ -8,6 +8,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import pandas as pd
 from typing import Tuple, Any, Dict, Union
+import json
 
 # Setting up logger
 logger = logging.getLogger("ZipML")
@@ -139,31 +140,134 @@ def compare_models(models: list, X_train: Union[pd.DataFrame, Any], X_test: Unio
 
     return best_model, performance
 
+# Function to display a welcome message with ASCII art
+def display_welcome_message():
+    """
+    Displays an ASCII art welcome message for ZipML.
+    """
+    ascii_art = r"""
+ ______     __     ______   __    __     __       
+/\___  \   /\ \   /\  == \ /\ "-./  \   /\ \      
+\/_/  /__  \ \ \  \ \  _-/ \ \ \-./\ \  \ \ \____ 
+  /\_____\  \ \_\  \ \_\    \ \_\ \ \_\  \ \_____\
+  \/_____/   \/_/   \/_/     \/_/  \/_/   \/_____/
+
+                 Z I P M L
+        Developed by Abdullah Ozmantar
+    """
+    
+    description = """
+    Welcome to ZipML!
+    
+    This tool helps you quickly train, compare, and evaluate machine learning models.
+    You can either train a single model or compare multiple models based on performance metrics.
+    
+    Usage examples:
+    1. Train a specific model:
+       zipml --train train.csv --test test.csv --model randomforest --output results.json
+
+    2. Compare multiple models:
+       zipml --train train.csv --test test.csv --compare --compare_models randomforest svc knn --output results.json
+    """
+    
+    print(ascii_art)
+    print(description)
+
 # Main function to run the CLI
 def main() -> None:
     """
-        Main CLI function to train and compare models, and save the confusion matrix.
+    Main CLI function to train and compare models, and save the confusion matrix.
     """
+    # Display the welcome message
+    display_welcome_message()
+
     parser = argparse.ArgumentParser(description='ZipML: A simple AutoML for small datasets')
-    parser.add_argument('file_path', type=str, help='Path to the dataset CSV file')
-    parser.add_argument('target_column', type=str, help='Name of the target column in the dataset')
+
+    # CLI Arguments
+    parser.add_argument('--train', type=str, required=True, help='Path to the training dataset CSV file')
+    parser.add_argument('--test', type=str, required=True, help='Path to the testing dataset CSV file')
+    parser.add_argument('--model', type=str, help='Model to be trained (optional if using compare_models)')
+    parser.add_argument('--compare', action='store_true', help='Flag to compare multiple models')
+    parser.add_argument('--compare_models', type=str, nargs='+', help='Models to be compared. E.g., "randomforest svc knn gradientboosting"')
+    parser.add_argument('--output', type=str, help='Path to save the results as a JSON file')
+
     args = parser.parse_args()
-    
-    logger.info(f"Loading dataset from {args.file_path}.")
-    data = pd.read_csv(args.file_path)
-    X = data.drop(args.target_column, axis=1)
-    y = data[args.target_column]
-    
-    best_model, results = train_models(X, y)
-    
-    # Test the best model and generate confusion matrix
-    X_train, X_test, y_train, y_test = split_data(X, y)
-    y_pred = best_model.predict(X_test)
-    
+
+    # List of selectable models
+    model_options = {
+        'randomforest': RandomForestClassifier(),
+        'svc': SVC(),
+        'knn': KNeighborsClassifier(),
+        'gradientboosting': GradientBoostingClassifier()
+    }
+
+    # Show available models to the user
+    print("\nAvailable Models for Comparison or Training:")
+    for model_name in model_options.keys():
+        print(f"- {model_name}")
+
+    # Load the data
+    logger.info(f"Loading training dataset from {args.train}.")
+    train_data = pd.read_csv(args.train)
+
+    logger.info(f"Loading testing dataset from {args.test}.")
+    test_data = pd.read_csv(args.test)
+
+    # Show columns and the first few rows of data
+    print("\nAvailable Columns in Training Data:")
+    print(train_data.head())
+
+    # Ask the user to select the target column
+    target_column = input("\nPlease select the target column for prediction: ")
+
+    X_train = train_data.drop(columns=[target_column])
+    y_train = train_data[target_column]
+
+    X_test = test_data.drop(columns=[target_column])
+    y_test = test_data[target_column]
+
+    # Model comparison
+    if args.compare:
+        if args.compare_models:
+            # Compare the models selected by the user
+            selected_models = [model_options[model] for model in args.compare_models if model in model_options]
+            logger.info(f"Comparing selected models: {args.compare_models}.")
+        else:
+            # Compare all models
+            selected_models = list(model_options.values())
+            logger.info("Comparing all available models.")
+
+        best_model, performance = compare_models(selected_models, X_train, X_test, y_train, y_test)
+
+        print("\nComparison Results:")
+        for model_name, acc in performance.items():
+            print(f"{model_name}: Accuracy = {acc:.4f}")
+
+    else:
+        if not args.model:
+            raise ValueError("Model argument is required unless comparing models.")
+
+        # Train a single model and obtain results
+        selected_model = model_options[args.model]
+        selected_model.fit(X_train, y_train)
+        y_pred = selected_model.predict(X_test)
+
+        # Calculate performance results
+        accuracy = accuracy_score(y_test, y_pred)
+        results = {args.model: {'accuracy': accuracy}}
+
+        print("\nModel Results:")
+        for metric_name, value in results[args.model].items():
+            print(f"{metric_name}: {value:.4f}")
+
+    # Make predictions and create confusion matrix
     save_confusion_matrix(y_test, y_pred)
-    plot_results(results)
-    
-    return best_model
+
+    # Save results as JSON
+    if args.output:
+        logger.info(f"Saving results to {args.output}.")
+        with open(args.output, 'w') as f:
+            json.dump(results if not args.compare else performance, f)
 
 if __name__ == '__main__':
     main()
