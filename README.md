@@ -18,6 +18,15 @@
   </a>
 </p>
 
+<p align="center">
+  <a href="https://pepy.tech/project/zipml">
+    <img src="https://static.pepy.tech/badge/zipml" alt="Downloads" />
+  </a>
+  <a href="https://pepy.tech/project/zipml">
+    <img src="https://static.pepy.tech/badge/zipml" alt="Total downloads" />
+  </a>
+</p>
+
 **ZipML** is a lightweight AutoML library designed for small datasets, offering essential helper functions like train-test splitting, model comparison, and confusion matrix generation.
 
 ## Features
