@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='zipml',
-    version='0.2.2',
+    version='0.2.3',
     description='A simple AutoML tool for small datasets with useful helper functions',
     author='Abdullah OZMANTAR',
     author_email='abdullahozmntr@gmail.com',
@@ -22,7 +22,7 @@ setup(
         'Intended Audience :: Education',
         'Topic :: Software Development :: Libraries',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.11',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
     ],
