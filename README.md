@@ -1,6 +1,3 @@
-Elbette! Aşağıda, sağladığın kod örneği ve belirttiğin değişiklikler göz önünde bulundurularak güncellenmiş README dosyası yer alıyor:
-
-````markdown
 # ZipML
 
 <p align="center">
@@ -41,6 +38,7 @@ Install the package via pip:
 ```bash
 pip install zipml
 ```
+
 ````
 
 Alternatively, clone the repository:
@@ -153,9 +151,10 @@ zipml --train train.csv --test test.csv --model randomforest --save_model traine
 
 ## Author
 
-**Abdullah OZMANTAR**  
+**Abdullah OZMANTAR**
 GitHub: [@abdozmantar](https://github.com/abdozmantar)
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/abdozmantar/zipml/blob/main/LICENSE) file for details.
+````
