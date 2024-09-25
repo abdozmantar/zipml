@@ -4,8 +4,8 @@
   <a href="https://badge.fury.io/py/zipml">
     <img src="https://badge.fury.io/py/zipml.svg" alt="PyPI version" />
   </a>
-  <a href="https://travis-ci.com/abdozmantar/zipml">
-    <img src="https://travis-ci.com/abdozmantar/zipml.svg?branch=main" alt="Build Status" />
+  <a href="https://github.com/abdozmantar/zipml/actions">
+      <img src="https://github.com/abdozmantar/zipml/actions/workflows/ci.yml/badge.svg" alt="Build Status" />
   </a>
   <a href="https://github.com/abdozmantar/zipml/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License" />
