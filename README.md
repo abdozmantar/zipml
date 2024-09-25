@@ -13,14 +13,11 @@
   <a href="https://pypi.org/project/zipml/">
     <img src="https://img.shields.io/pypi/pyversions/zipml.svg" alt="Python Versions" />
   </a>
-  <a href="https://pypi.org/project/zipml/">
-    <img src="https://img.shields.io/pypi/dm/zipml.svg" alt="Downloads" />
-  </a>
 </p>
 
 <p align="center">
   <a href="https://pepy.tech/project/zipml">
-    <img src="https://static.pepy.tech/badge/zipml" alt="Downloads" />
+    <img src="https://static.pepy.tech/badge/zipml/month" alt="Downloads" />
   </a>
   <a href="https://pepy.tech/project/zipml">
     <img src="https://static.pepy.tech/badge/zipml" alt="Total downloads" />
