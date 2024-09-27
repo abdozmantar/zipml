@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://badge.fury.io/py/zipml">
-    <img src="https://d25lcipzij17d.cloudfront.net/badge.svg?id=py&r=r&ts=1683906897&type=6e&v=0.2.3&x2=0" alt="PyPI version" />
+    <img src="https://d25lcipzij17d.cloudfront.net/badge.svg?id=py&r=r&ts=1683906897&type=6e&v=0.2.4&x2=0" alt="PyPI version" />
   </a>
   <a href="https://github.com/abdozmantar/zipml/actions">
       <img src="https://github.com/abdozmantar/zipml/actions/workflows/ci.yml/badge.svg" alt="Build Status" />
