@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://badge.fury.io/py/zipml">
-    <img src="https://badge.fury.io/py/zipml.svg" alt="PyPI version" />
+    <img src="https://d25lcipzij17d.cloudfront.net/badge.svg?id=py&r=r&ts=1683906897&type=6e&v=0.2.3&x2=0" alt="PyPI version" />
   </a>
   <a href="https://github.com/abdozmantar/zipml/actions">
       <img src="https://github.com/abdozmantar/zipml/actions/workflows/ci.yml/badge.svg" alt="Build Status" />
@@ -36,6 +36,9 @@
 - **Model Comparison**: Compare the performance of different models with ease, providing metrics and visual feedback.
 - **CLI Support**: Run machine learning tasks directly from the command line.
 - **Extensible**: Add your own models and customize workflows as needed.
+- **Visualization Tools**: Includes tools for visualizing model performance metrics, helping to understand model behavior better.
+- **Hyperparameter Tuning**: Support for hyperparameter tuning to optimize model performance.
+- **Data Preprocessing**: Built-in data preprocessing steps to handle missing values, scaling, and encoding.
 
 ## Installation
 
@@ -60,16 +63,34 @@ pip install .
 Here's a practical example of how to use ZipML:
 
 ```python
-from zipml import split_data, compare_models, save_confusion_matrix
-from sklearn.datasets import load_iris
+import pandas as pd
+from zipml.model import analyze_model_predictions
+from zipml.model import calculate_model_results
+from zipml.visualization import save_and_plot_confusion_matrix
+from zipml.data import split_data
+from zipml import compare_models
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
 
-# Load data
-data = load_iris()
-X, y = data.data, data.target
 
-# Split data
+# Sample dataset
+data = {
+    'feature_1': [0.517, 0.648, 0.105, 0.331, 0.781, 0.026, 0.048],
+    'feature_2': [0.202, 0.425, 0.643, 0.721, 0.646, 0.827, 0.303],
+    'feature_3': [0.897, 0.579, 0.014, 0.167, 0.015, 0.358, 0.744],
+    'feature_4': [0.457, 0.856, 0.376, 0.527, 0.648, 0.534, 0.047],
+    'feature_5': [0.046, 0.118, 0.222, 0.001, 0.969, 0.239, 0.203],
+    'target': [0, 1, 1, 1, 1, 1, 0]
+}
+
+# Creating DataFrame
+df = pd.DataFrame(data)
+
+# Splitting data into features (X) and target (y)
+X = df.drop('target', axis=1)
+y = df['target']
+
+# Split the data into training and test sets
 X_train, X_test, y_train, y_test = split_data(X, y)
 
 # Define models
@@ -79,12 +100,18 @@ models = [
     GradientBoostingClassifier()
 ]
 
-# Compare models
+# Compare models and select the best one
 best_model, performance = compare_models(models, X_train, X_test, y_train, y_test)
-print(f"Best model: {best_model}")
+print(f"Best model: {best_model} with performance: {performance}")
 
-# Save confusion matrix
-save_confusion_matrix(y_test, best_model.predict(X_test))
+# Calculate performance metrics for the best model
+best_model_metrics = calculate_model_results(y_test, best_model.predict(X_test))
+
+# Analyze model predictions
+val_df, most_wrong = analyze_model_predictions(best_model, X_test, y_test)
+
+# Save and plot confusion matrix
+save_and_plot_confusion_matrix(y_test, best_model.predict(X_test), save_path="confusion_matrix.png")
 ```
 
 ### CLI Usage

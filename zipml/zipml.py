@@ -1,17 +1,16 @@
 import argparse
 import logging
-from .helpers import plot_results, split_data, save_confusion_matrix
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import pandas as pd
 from typing import Tuple, Any, Dict, Union
 import json
 import pickle
+from .model import calculate_model_results
 
-# Setting up logger
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("ZipML")
 
 # Global model options
@@ -21,26 +20,6 @@ model_options = {
     'knn': KNeighborsClassifier(),
     'gradientboosting': GradientBoostingClassifier()
 }
-
-# Function to evaluate model performance
-def evaluate_model(y_true: Any, y_pred: Any) -> Dict[str, float]:
-    """
-    Evaluates performance metrics for the model's predictions.
-
-    Parameters:
-        y_true (array-like): True labels.
-        y_pred (array-like): Predicted labels.
-
-    Returns:
-        dict: A dictionary containing accuracy, precision, recall, and F1 score.
-    """
-    logger.info("Evaluating model performance metrics.")
-    return {
-        'accuracy': accuracy_score(y_true, y_pred),
-        'precision': precision_score(y_true, y_pred, average='weighted'),
-        'recall': recall_score(y_true, y_pred, average='weighted'),
-        'f1_score': f1_score(y_true, y_pred, average='weighted')
-    }
 
 # Function for hyperparameter optimization
 def optimize_hyperparameters(model: Any, X_train: Union[pd.DataFrame, Any], y_train: Any, param_grid: Dict[str, list]) -> Any:
@@ -104,8 +83,9 @@ def compare_models(models: list, X_train: Union[pd.DataFrame, Any], X_test: Unio
         predictions = model.predict(X_test)
         
         # Calculate accuracy
-        accuracy = accuracy_score(y_test, predictions)
-        performance[model.__class__.__name__] = accuracy
+        results_df = calculate_model_results(y_test, predictions)
+        f1_score = results_df.loc[results_df["Metric"] == "F1 Score", "Value"].values[0]
+        performance[model.__class__.__name__] = f1_score
 
     # Determine the best model based on accuracy
     best_model_name = max(performance, key=performance.get)
@@ -163,10 +143,10 @@ def predict(model: Any, X: Union[pd.DataFrame, Any]) -> Any:
 # Function to display a welcome message with ASCII art
 def display_welcome_message():
     """
-    Displays an ASCII art welcome message for ZipML.
+        Displays an ASCII art welcome message for ZipML.
     """
     
-    ascii_art = r"""
+    author = r"""
  ______     __     ______   __    __     __       
 /\___  \   /\ \   /\  == \ /\ "-./  \   /\ \      
 \/_/  /__  \ \ \  \ \  _-/ \ \ \-./\ \  \ \ \____ 
@@ -177,39 +157,42 @@ def display_welcome_message():
         Developed by Abdullah Ozmantar
     """
     
-    description = """
-    Welcome to ZipML!
-    
-    This tool helps you quickly train, compare, and evaluate machine learning models.
-    You can either train a single model or compare multiple models based on performance metrics.
-    
-    Usage examples:
-    1. Train a specific model:
-       zipml --train train.csv --test test.csv --model randomforest --result results.json
+    colored_description = f"""
+        \033[34mWelcome to ZipML!\033[0m
+            
+        \033[37mThis tool helps you quickly train, compare, and evaluate machine learning models.
+        You can either train a single model or compare multiple models based on performance metrics.\033[0m
+            
+        \033[33mUsage examples:\033[0m
 
-    2. Compare multiple models:
-       zipml --train train.csv --test test.csv --compare --compare_models randomforest svc knn --result results.json
+        \033[90m1. Train a specific model:\033[0m
+        \033[32m   zipml --train train.csv --test test.csv --model randomforest --result results.json\033[0m       
 
-    3. Load a pre-trained model:
-       zipml --load_model model.pkl --test test.csv --result results.json
+        \033[90m2. Compare multiple models:\033[0m
+        \033[32m   zipml --train train.csv --test test.csv --compare --compare_models randomforest svc knn --result results.json\033[0m
+
+        \033[90m3. Load a pre-trained model:\033[0m
+        \033[32m   zipml --load_model model.pkl --test test.csv --result results.json\033[0m
     """
     
-    print(ascii_art)
-    print(description)
+    colored_author = f"\033[36m{author}\033[0m"
+    
+    print(colored_author)
+    print(colored_description)
 
 # Main function to run the CLI
 def main() -> None:
     """
         Main CLI function to train and compare models, and save the confusion matrix.
     """
-    # Display the welcome message
+    
     display_welcome_message()
 
     parser = argparse.ArgumentParser(description='ZipML: A simple AutoML for small datasets')
 
     # CLI Arguments
     parser.add_argument('--train', type=str, help='Path to the training dataset CSV file (required unless using --load_model)')
-    parser.add_argument('--test', type=str, required=True, help='Path to the testing dataset CSV file')
+    parser.add_argument('--test', type=str, help='Path to the testing dataset CSV file')
     parser.add_argument('--model', type=str, help='Model to be trained (optional if using compare_models)')
     parser.add_argument('--compare', action='store_true', help='Flag to compare multiple models')
     parser.add_argument('--compare_models', type=str, nargs='+', help='Models to be compared. E.g., "randomforest svc knn gradientboosting"')
@@ -219,7 +202,6 @@ def main() -> None:
 
     args = parser.parse_args()
 
-    # Show available models to the user
     print("\nAvailable Models for Comparison or Training:")
     for model_name in model_options.keys():
         print(f"- {model_name}")
@@ -229,7 +211,6 @@ def main() -> None:
         logger.info(f"Loading training dataset from {args.train}.")
         train_data = pd.read_csv(args.train)
 
-        # Show columns and the first few rows of data
         print("\nAvailable Columns in Training Data:")
         print(train_data.head())
 
@@ -243,7 +224,7 @@ def main() -> None:
         X_test = test_data.drop(columns=[target_column])
         y_test = test_data[target_column]
 
-    else:
+    elif args.test:
         logger.info(f"Loading testing dataset from {args.test}.")
         test_data = pd.read_csv(args.test)
         
@@ -265,7 +246,7 @@ def main() -> None:
         
         # Make predictions and evaluate the model
         predictions = trained_model.predict(X_test)
-        metrics = evaluate_model(y_test, predictions)
+        metrics = calculate_model_results(y_test, predictions)
         print("\nModel Evaluation Metrics:")
         for metric, value in metrics.items():
             print(f"{metric.capitalize()}: {value:.2f}")
@@ -312,7 +293,7 @@ def main() -> None:
 
         # Make predictions and evaluate the model
         predictions = trained_model.predict(X_test)
-        metrics = evaluate_model(y_test, predictions)
+        metrics = calculate_model_results(y_test, predictions)
         print("\nModel Evaluation Metrics:")
         for metric, value in metrics.items():
             print(f"{metric.capitalize()}: {value:.2f}")
