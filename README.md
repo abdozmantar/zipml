@@ -2,7 +2,7 @@
 
 <div align="center">
  
-<img src="https://github.com/abdozmantar/zipml/blob/main/public/logo.png?raw=true" alt="ZipML Logo" width="180px"/>
+<img src="https://github.com/abdozmantar/zipml/blob/main/public/logo.png?raw=true" alt="ZipML Logo" width="180px" style="margin-bottom: 20px;"/>
 
 [![PyPI](https://img.shields.io/pypi/v/zipml.svg)](https://pypi.org/project/zipml/)
 [![Build Status](https://github.com/abdozmantar/zipml/actions/workflows/ci.yml/badge.svg)](https://github.com/abdozmantar/zipml/actions/workflows/ci.yml)
