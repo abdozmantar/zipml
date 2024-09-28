@@ -1,7 +1,7 @@
 # ZipML
 
 <div align="center">
-
+ 
 <img src="https://github.com/abdozmantar/zipml/blob/main/public/logo.png?raw=true" alt="ZipML Logo" width="180px"/>
 
 [![PyPI](https://img.shields.io/pypi/v/zipml.svg)](https://pypi.org/project/zipml/)
