@@ -1,16 +1,20 @@
 # ZipML
 
 <div align="center">
- 
-<img src="https://github.com/abdozmantar/zipml/blob/main/public/logo.png?raw=true" alt="ZipML Logo" width="180px" style="margin-bottom: 20px;"/>
 
-[![PyPI](https://img.shields.io/pypi/v/zipml.svg)](https://pypi.org/project/zipml/)
-[![Build Status](https://github.com/abdozmantar/zipml/actions/workflows/ci.yml/badge.svg)](https://github.com/abdozmantar/zipml/actions/workflows/ci.yml)
-[![Python Versions](https://img.shields.io/pypi/pyversions/zipml.svg)](https://pypi.org/project/zipml/)
+  <img src="https://github.com/abdozmantar/zipml/blob/main/public/logo.png?raw=true" alt="ZipML Logo" width="180px" style="margin-bottom: 20px;" />
 
-[![Downloads/Week](https://static.pepy.tech/badge/zipml/week)](https://pepy.tech/project/zipml)
-[![Downloads](https://static.pepy.tech/badge/zipml)](https://pepy.tech/project/zipml)
-[![Stars](https://img.shields.io/github/stars/abdozmantar/zipml?color=yellow&style=flat&label=%E2%AD%90%20Stars)](https://github.com/abdozmantar/zipml/stargazers)
+  <div style="margin-bottom: 10px;"> <!-- Burada badge'ler için ek boşluk bırakıyoruz -->
+    [![PyPI](https://img.shields.io/pypi/v/zipml.svg)](https://pypi.org/project/zipml/)
+    [![Build Status](https://github.com/abdozmantar/zipml/actions/workflows/ci.yml/badge.svg)](https://github.com/abdozmantar/zipml/actions/workflows/ci.yml)
+    [![Python Versions](https://img.shields.io/pypi/pyversions/zipml.svg)](https://pypi.org/project/zipml/)
+  </div>
+
+  <div style="margin-bottom: 10px;"> <!-- Badge gruplarını ayırmak için bir başka div -->
+    [![Downloads/Week](https://static.pepy.tech/badge/zipml/week)](https://pepy.tech/project/zipml)
+    [![Downloads](https://static.pepy.tech/badge/zipml)](https://pepy.tech/project/zipml)
+    [![Stars](https://img.shields.io/github/stars/abdozmantar/zipml?color=yellow&style=flat&label=%E2%AD%90%20Stars)](https://github.com/abdozmantar/zipml/stargazers)
+  </div>
 
 [![License](https://img.shields.io/github/license/abdozmantar/zipml.svg)](https://github.com/abdozmantar/zipml/blob/main/LICENSE)
 
