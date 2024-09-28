@@ -1,28 +1,20 @@
 # ZipML
 
-<p align="center">
-  <a href="https://badge.fury.io/py/zipml">
-    <img src="https://d25lcipzij17d.cloudfront.net/badge.svg?id=py&r=r&ts=1683906897&type=6e&v=0.2.3&x2=0" alt="PyPI version" />
-  </a>
-  <a href="https://github.com/abdozmantar/zipml/actions">
-      <img src="https://github.com/abdozmantar/zipml/actions/workflows/ci.yml/badge.svg" alt="Build Status" />
-  </a>
-  <a href="https://github.com/abdozmantar/zipml/blob/main/LICENSE">
-    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License" />
-  </a>
-  <a href="https://pypi.org/project/zipml/">
-    <img src="https://img.shields.io/pypi/pyversions/zipml.svg" alt="Python Versions" />
-  </a>
-</p>
+<div align="center">
 
-<p align="center">
-  <a href="https://pepy.tech/project/zipml">
-    <img src="https://static.pepy.tech/badge/zipml/month" alt="Downloads" />
-  </a>
-  <a href="https://pepy.tech/project/zipml">
-    <img src="https://static.pepy.tech/badge/zipml" alt="Total downloads" />
-  </a>
-</p>
+<img src="https://github.com/abdozmantar/zipml/blob/main/public/logo.png?raw=true" alt="ZipML Logo" width="180px"/>
+
+[![PyPI](https://img.shields.io/pypi/v/zipml.svg)](https://pypi.org/project/zipml/)
+[![Build Status](https://github.com/abdozmantar/zipml/actions/workflows/ci.yml/badge.svg)](https://github.com/abdozmantar/zipml/actions/workflows/ci.yml)
+[![Python Versions](https://img.shields.io/pypi/pyversions/zipml.svg)](https://pypi.org/project/zipml/)
+
+[![Downloads/Week](https://static.pepy.tech/badge/zipml/week)](https://pepy.tech/project/zipml)
+[![Downloads](https://static.pepy.tech/badge/zipml)](https://pepy.tech/project/zipml)
+[![Stars](https://img.shields.io/github/stars/abdozmantar/zipml?color=yellow&style=flat&label=%E2%AD%90%20Stars)](https://github.com/abdozmantar/zipml/stargazers)
+
+[![License](https://img.shields.io/github/license/abdozmantar/zipml.svg)](https://github.com/abdozmantar/zipml/blob/main/LICENSE)
+
+</div>
 
 **ZipML** is a lightweight AutoML library designed for small datasets, offering essential helper functions like train-test splitting, model comparison, and confusion matrix generation.
 
