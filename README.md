@@ -33,6 +33,50 @@
 - **Hyperparameter Tuning**: Support for hyperparameter tuning to optimize model performance.
 - **Data Preprocessing**: Built-in data preprocessing steps to handle missing values, scaling, and encoding.
 
+Tabii, aşağıda bu yapıdaki dosyaların PyPI projenizin README dosyasına eklenmesi için örnek bir yazım ve kullanım talimatları bulunuyor. `__init__.py` dosyalarını hariç tuttum.
+
+---
+
+### Package Structure
+
+```bash
+zipml/
+│
+├── data/
+│   ├── encoding.py
+│   ├── file_operations.py
+│   ├── split_data.py
+│
+├── model/
+│   ├── analyze_model_predictions.py
+│   ├── calculate_model_results.py
+│   ├── measure_prediction_time.py
+│
+├── utils/
+│   ├── calculate_sentence_length_percentile.py
+│   ├── read_time_series_data.py
+│
+├── visualization/
+│   ├── combine_and_plot_model_results.py
+│   ├── plot_random_image.py
+│   ├── plot_time_series.py
+│   ├── save_and_plot_confusion_matrix.py
+│
+└── zipml.py
+```
+
+### How to Use the `zipml` Package
+
+The `zipml` package provides a variety of utilities for preprocessing data, analyzing models, and visualizing results, all designed to simplify AI and machine learning workflows. Below are the instructions for using some of the key functions.
+
+#### 1. **Model Evaluation**
+
+- **`analyze_model_predictions.py`**: Evaluates model predictions by comparing them with actual values and returns a detailed dataframe of predictions along with the most incorrect predictions.
+  ```python
+  from zipml.model import analyze_model_predictions
+  val_df, most_wrong = analyze_model_predictions(best_model, X_test, y_test)
+  ```
+
 ## Installation
 
 Install the package via pip:
