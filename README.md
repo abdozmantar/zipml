@@ -33,8 +33,6 @@
 - **Hyperparameter Tuning**: Support for hyperparameter tuning to optimize model performance.
 - **Data Preprocessing**: Built-in data preprocessing steps to handle missing values, scaling, and encoding.
 
-Tabii, aşağıda bu yapıdaki dosyaların PyPI projenizin README dosyasına eklenmesi için örnek bir yazım ve kullanım talimatları bulunuyor. `__init__.py` dosyalarını hariç tuttum.
-
 ---
 
 ### Package Structure
@@ -64,6 +62,8 @@ zipml/
 │
 └── zipml.py
 ```
+
+---
 
 ### How to Use the `zipml` Package
 
